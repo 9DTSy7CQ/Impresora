@@ -3,7 +3,7 @@ package es.etg.dam;
 public class Tinta {
 
     public static final int HOJAS_BN_INICIAL    = 50;
-    public static final int HOJAS_COLOR_INICIAL = 20;
+    public static final int HOJAS_COLOR_INICIAL = 25;
 
     private int hojasBN;
     private int hojasColor;
