@@ -20,12 +20,6 @@ public class Cliente {
     private static final String HOST = "localhost";
 
     public static void main(String[] args) throws ClienteException {
-
-        if (args.length != 1) {
-            System.out.println(MSG_USO);
-            return;
-        }
-
         Logger logger;
 
         try {
