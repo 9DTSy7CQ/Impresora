@@ -1,0 +1,10 @@
+jun 04, 2026 9:10:22 P. M. es.etg.dam.util.LogUtil escribirLog
+INFO: Servidor iniciado en puerto 8080
+jun 04, 2026 9:10:28 P. M. es.etg.dam.util.LogUtil escribirLog
+INFO: Cliente conectado: /127.0.0.1
+jun 04, 2026 9:10:28 P. M. es.etg.dam.util.LogUtil escribirLog
+INFO: Petición recibida: BN 5
+jun 04, 2026 9:10:28 P. M. es.etg.dam.util.LogUtil escribirLog
+INFO: Respuesta enviada: OK 2,50 euros | Hojas restantes: BN=45, COLOR=25
+jun 04, 2026 9:10:48 P. M. es.etg.dam.util.LogUtil escribirLog
+INFO: Servidor iniciado en puerto 8080

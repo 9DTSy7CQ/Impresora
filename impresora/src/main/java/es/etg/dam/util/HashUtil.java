@@ -5,7 +5,7 @@ import java.util.Base64;
 
 public class HashUtil {
 
-    private static final String ALGORITMO    = "SHA-256";
+    private static final String ALGORITMO = "SHA-256";
     private static final String CODIFICACION = "UTF-8";
 
     public static String convertirSHA256(String cadena) throws Exception {
