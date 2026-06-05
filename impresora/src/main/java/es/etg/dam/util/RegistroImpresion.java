@@ -12,6 +12,7 @@ public class RegistroImpresion {
             "[%s] OK  | Tipo: %-5s | Hojas: %2d | Coste: %.2f euros | BN restantes: %2d | COLOR restantes: %2d";
     private static final String FORMATO_KO =
             "[%s] KO  | Tipo: %-5s | Hojas: %2d | Motivo: sin tinta suficiente | BN restantes: %2d | COLOR restantes: %2d";
+    private static final String ERROR_ESCRITURA_LOG = "Error escribiendo log: %s";
 
     private static final RegistroImpresion INSTANCIA = new RegistroImpresion();
 
@@ -33,7 +34,7 @@ public class RegistroImpresion {
         try (PrintWriter pw = new PrintWriter(new FileWriter(FICHERO, true))) {
             pw.println(linea);
         } catch (IOException e) {
-            System.err.println("Error escribiendo log: " + e.getMessage());
+            System.err.println(String.format(ERROR_ESCRITURA_LOG, e.getMessage()));
         }
     }
 }
