@@ -12,9 +12,11 @@ import java.util.logging.Logger;
 public class Servidor {
 
     public static final int PUERTO = 8080;
+    public static final String HOST = "localhost";
     public static final String MSG_ESCUCHA = "Servidor iniciado en puerto %d";
     public static final String MSG_CLIENTE = "Cliente conectado: %s";
     public static final String FICHERO_LOG = "servidor.log";
+
 
     public static void main(String[] args) throws ServidorException {
 

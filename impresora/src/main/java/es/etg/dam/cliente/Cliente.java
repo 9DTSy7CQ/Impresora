@@ -12,14 +12,14 @@ import java.util.logging.Logger;
 
 public class Cliente {
 
-    private static final String MSG_USO = "Uso: java Cliente \"BN 5\" | \"COLOR 3\"";
+    private static final String MSG_USO       = "Uso: java Cliente \"BN 5\" | \"COLOR 3\"";
     private static final String MSG_RESPUESTA = "Servidor responde: %s";
-    private static final String MSG_ENVIANDO = "Enviando peticion: %s";
-    private static final String FICHERO_LOG = "cliente.log";
-    private static final int INDEX_PETICION = 0;
-    private static final String HOST = "localhost";
+    private static final String MSG_ENVIANDO  = "Enviando peticion: %s";
+    private static final String FICHERO_LOG   = "cliente.log";
+    private static final int    INDEX_PETICION = 0;
 
     public static void main(String[] args) throws ClienteException {
+
         Logger logger;
 
         try {
@@ -28,7 +28,7 @@ public class Cliente {
             throw new ClienteException(e.getMessage(), e);
         }
 
-        try (Socket socket = new Socket(HOST, Servidor.PUERTO)) {
+        try (Socket socket = new Socket(Servidor.HOST, Servidor.PUERTO)) {
 
             String peticion = args[INDEX_PETICION].trim();
 

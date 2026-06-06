@@ -30,44 +30,38 @@ public class ClienteHandler implements Runnable {
         this.impresora = impresora;
         this.logger = logger;
     }
+@Override
+public void run() {
+    try {
+        String peticion = Conexion.recibir(socket);
+        LogUtil.escribirLog(logger, Level.INFO, String.format(MSG_PETICION, peticion));
 
-    @Override
-    public void run() {
+        String[] partes = peticion.split(SPLITTER);
+
+        if (partes.length != PARTES_ESPERADAS) {
+            LogUtil.escribirLog(logger, Level.WARNING, String.format(MSG_FORMATO_KO, peticion));
+            throw new GestionClienteException(String.format(MSG_FORMATO_KO, peticion));
+        }
+
+        String tipo  = partes[INDEX_TIPO].toUpperCase();
+        int    hojas = Integer.parseInt(partes[INDEX_HOJAS]);
+
+        String respuesta = impresora.imprimir(tipo, hojas);
+        LogUtil.escribirLog(logger, Level.INFO, String.format(MSG_RESPUESTA, respuesta));
+        Conexion.enviar(respuesta, socket);
+
+    } catch (GestionClienteException e) {
+        LogUtil.escribirLog(logger, Level.SEVERE, String.format(MSG_ERROR, e.getMessage()), e);
+        throw e;
+    } catch (Exception e) {
+        LogUtil.escribirLog(logger, Level.SEVERE, String.format(MSG_ERROR, e.getMessage()), e);
+        throw new GestionClienteException(e.getMessage(), e);
+    } finally {
         try {
-            String peticion = Conexion.recibir(socket);
-            LogUtil.escribirLog(logger, Level.INFO, String.format(MSG_PETICION, peticion));
-
-            String[] partes = peticion.split(SPLITTER);
-
-            if (partes.length != PARTES_ESPERADAS) {
-                LogUtil.escribirLog(logger, Level.WARNING, String.format(MSG_FORMATO_KO, peticion));
-                throw new GestionClienteException(String.format(MSG_FORMATO_KO, peticion));
-            }
-
-            String tipo = partes[INDEX_TIPO].toUpperCase();
-            int hojas = Integer.parseInt(partes[INDEX_HOJAS]);
-
-            String respuesta = impresora.imprimir(tipo, hojas);
-            LogUtil.escribirLog(logger, Level.INFO, String.format(MSG_RESPUESTA, respuesta));
-            Conexion.enviar(respuesta, socket);
-
-        } catch (GestionClienteException e) {
-            try {
-                Conexion.enviar(MSG_KO, socket);
-            } catch (Exception ignored) {
-            }
-            throw e;
+            socket.close();
         } catch (Exception e) {
-            try {
-                Conexion.enviar(MSG_KO, socket);
-            } catch (Exception ignored) {
-            }
-            throw new GestionClienteException(e.getMessage(), e);
-        } finally {
-            try {
-                socket.close();
-            } catch (Exception ignored) {
-            }
+            LogUtil.escribirLog(logger, Level.WARNING, String.format(MSG_ERROR, e.getMessage()), e);
         }
     }
+}
 }
